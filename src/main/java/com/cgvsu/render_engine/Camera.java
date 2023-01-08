@@ -1,6 +1,9 @@
 package com.cgvsu.render_engine;
-import javax.vecmath.Vector3f;
-import javax.vecmath.Matrix4f;
+
+
+import com.cgvsu.Math.Matrix.Matrix4f;
+import com.cgvsu.Math.Vector.Vector;
+import com.cgvsu.Math.Vector.Vector3f;
 
 public class Camera {
 
@@ -39,15 +42,15 @@ public class Camera {
         return target;
     }
 
-    public void movePosition(final Vector3f translation) {
-        this.position.add(translation);
+    public void movePosition(final Vector3f translation) throws Vector.VectorException {
+        this.position = (Vector3f) Vector.sumVector(position, translation);
     }
 
-    public void moveTarget(final Vector3f translation) {
-        this.target.add(target);
+    public void moveTarget(final Vector3f translation) throws Vector.VectorException {
+        this.target = (Vector3f) Vector.sumVector(target, target);
     }
 
-    Matrix4f getViewMatrix() {
+    Matrix4f getViewMatrix() throws Vector.VectorException {
         return GraphicConveyor.lookAt(position, target);
     }
 

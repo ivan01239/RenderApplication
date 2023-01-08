@@ -1,54 +1,97 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.MenuBar?>
-<?import javafx.scene.control.Menu?>
-<?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.input.KeyCodeCombination?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.canvas.Canvas?>
+<?import javafx.scene.canvas.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.input.*?>
+<?import javafx.scene.layout.*?>
 
-<AnchorPane fx:id="anchorPane" xmlns:fx="http://javafx.com/fxml" fx:controller="com.cgvsu.GuiController">
-    <MenuBar>
-        <Menu mnemonicParsing="false" text="File">
+<AnchorPane fx:id="anchorPane" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.cgvsu.GuiController">
+<!--    <Button text="Dark" onAction="#onDark" layoutY="100"/>-->
+
+    <Canvas fx:id="canvas" height="870" layoutX="-14.0" onDragDetected="#mouseDrag" onScroll="#mouseScroll" width="1600" AnchorPane.topAnchor="0.0" />
+   <Button fx:id="nextModelBtn" layoutX="55.0" layoutY="190.0" mnemonicParsing="false" onAction="#chooseNextModel" text="Next" />
+   <Button fx:id="prevModelBtn" layoutX="4.0" layoutY="190.0" mnemonicParsing="false" onAction="#choosePrevModel" text="Prev" />
+   <RadioButton fx:id="setYButton" layoutX="64.0" layoutY="119.0" mnemonicParsing="false" text="Y">
+      <toggleGroup>
+         <ToggleGroup fx:id="radioBtnGroup" />
+      </toggleGroup></RadioButton>
+   <RadioButton fx:id="setXButton" layoutX="26.0" layoutY="119.0" mnemonicParsing="false" selected="true" text="X" toggleGroup="$radioBtnGroup" />
+   <RadioButton fx:id="setZButton" layoutX="103.0" layoutY="119.0" mnemonicParsing="false" text="Z" toggleGroup="$radioBtnGroup" />
+   <TextField fx:id="modelNumber" editable="false" layoutX="50.0" layoutY="160.0" prefHeight="11.0" prefWidth="29.0" />
+   <Label layoutX="8.0" layoutY="164.0" text="Model:" />
+   <CheckBox fx:id="transformForAll" layoutX="4.0" layoutY="140.0" mnemonicParsing="false" text="Transform all models" />
+    <MenuBar fx:id="menu">
+      <Menu fx:id="file" mnemonicParsing="false" text="File">
+         <items>
             <MenuItem mnemonicParsing="false" onAction="#onOpenModelMenuItemClick" text="Load Model">
-            <accelerator>
-                <KeyCodeCombination alt="UP" control="DOWN" meta="UP" shift="UP" shortcut="UP" code="F"/>
-            </accelerator>
+               <accelerator>
+                  <KeyCodeCombination alt="UP" code="F" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+               </accelerator>
             </MenuItem>
-        </Menu>
-        <Menu mnemonicParsing="false" text="Camera Options">
+            <MenuItem mnemonicParsing="false" onAction="#onSaveModelMenuItemClick" text="Save Model">
+               <accelerator>
+                  <KeyCodeCombination alt="UP" code="S" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+               </accelerator>
+            </MenuItem>
+         </items>
+      </Menu>
+      <Menu fx:id="camera" mnemonicParsing="false" text="Camera Options">
+         <items>
             <MenuItem mnemonicParsing="false" onAction="#handleCameraForward" text="Forward">
-                <accelerator>
-                    <KeyCodeCombination alt="UP" control="UP" meta="UP" shift="UP" shortcut="UP" code="UP"/>
-                </accelerator>
+               <accelerator>
+                  <KeyCodeCombination alt="UP" code="ADD" control="UP" meta="UP" shift="UP" shortcut="UP" />
+               </accelerator>
             </MenuItem>
             <MenuItem mnemonicParsing="false" onAction="#handleCameraBackward" text="Backward">
-                <accelerator>
-                    <KeyCodeCombination alt="UP" control="UP" meta="UP" shift="UP" shortcut="UP" code="DOWN"/>
-                </accelerator>
+               <accelerator>
+                  <KeyCodeCombination alt="UP" code="SUBTRACT" control="UP" meta="UP" shift="UP" shortcut="UP" />
+               </accelerator>
             </MenuItem>
             <MenuItem mnemonicParsing="false" onAction="#handleCameraLeft" text="Left">
-                <accelerator>
-                    <KeyCodeCombination alt="UP" control="UP" meta="UP" shift="UP" shortcut="UP" code="LEFT"/>
-                </accelerator>
+               <accelerator>
+                  <KeyCodeCombination alt="UP" code="A" control="UP" meta="UP" shift="UP" shortcut="UP" />
+               </accelerator>
             </MenuItem>
             <MenuItem mnemonicParsing="false" onAction="#handleCameraRight" text="Right">
-                <accelerator>
-                    <KeyCodeCombination alt="UP" control="UP" meta="UP" shift="UP" shortcut="UP" code="RIGHT"/>
-                </accelerator>
+               <accelerator>
+                  <KeyCodeCombination alt="UP" code="D" control="UP" meta="UP" shift="UP" shortcut="UP" />
+               </accelerator>
             </MenuItem>
             <MenuItem mnemonicParsing="false" onAction="#handleCameraUp" text="Up">
-                <accelerator>
-                    <KeyCodeCombination alt="UP" control="UP" meta="UP" shift="UP" shortcut="UP" code="W"/>
-                </accelerator>
+               <accelerator>
+                  <KeyCodeCombination alt="UP" code="W" control="UP" meta="UP" shift="UP" shortcut="UP" />
+               </accelerator>
             </MenuItem>
             <MenuItem mnemonicParsing="false" onAction="#handleCameraDown" text="Down">
-                <accelerator>
-                    <KeyCodeCombination alt="UP" control="UP" meta="UP" shift="UP" shortcut="UP" code="S"/>
-                </accelerator>
+               <accelerator>
+                  <KeyCodeCombination alt="UP" code="S" control="UP" meta="UP" shift="UP" shortcut="UP" />
+               </accelerator>
             </MenuItem>
-        </Menu>
+         </items>
+      </Menu>
+      <Menu fx:id="themes" mnemonicParsing="false" text="Themes">
+         <items>
+            <MenuItem mnemonicParsing="false" onAction="#onDark" text="Dark">
+               <accelerator>
+                  <KeyCodeCombination alt="UP" code="NUMPAD1" control="UP" meta="UP" shift="UP" shortcut="UP" />
+               </accelerator>
+            </MenuItem>
+            <MenuItem mnemonicParsing="false" onAction="#onLight" text="Light">
+               <accelerator>
+                  <KeyCodeCombination alt="UP" code="NUMPAD2" control="UP" meta="UP" shift="UP" shortcut="UP" />
+               </accelerator>
+            </MenuItem>
+         </items>
+      </Menu>
     </MenuBar>
-
-    <Canvas fx:id="canvas" width="1600" height="870" AnchorPane.topAnchor="30.0"/>
+   <Pane fx:id="buttons" layoutX="4.0" layoutY="26.0" prefHeight="95.0" prefWidth="162.0">
+      <children>
+         <Button fx:id="translatePlus" layoutX="86.0" layoutY="65.0" onAction="#translate" prefHeight="26.0" prefWidth="73.0" text="Translate+" />
+         <Button fx:id="translateMinus" layoutX="4.0" layoutY="65.0" onAction="#translateMinus" prefHeight="26.0" prefWidth="70.0" text="Translate-" />
+         <Button fx:id="rotateMinus" layoutX="4.0" layoutY="36.0" onAction="#rotateMinus" prefHeight="26.0" prefWidth="70.0" text="Rotate-" />
+         <Button fx:id="rotatePlus" layoutX="86.0" layoutY="36.0" onAction="#rotate" prefHeight="26.0" prefWidth="73.0" text="Rotate+" />
+         <Button fx:id="scaleMinus" layoutX="4.0" layoutY="8.0" onAction="#scaleMinus" prefHeight="26.0" prefWidth="70.0" text="Scale-" />
+         <Button fx:id="scalePlus" layoutX="86.0" layoutY="8.0" onAction="#scale" prefHeight="26.0" prefWidth="73.0" text="Scale+" />
+      </children>
+   </Pane>
 </AnchorPane>

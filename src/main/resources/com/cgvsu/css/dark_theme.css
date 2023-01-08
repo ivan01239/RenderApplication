@@ -1,0 +1,69 @@
+#anchorPane {
+-fx-background-color: #222;
+}
+
+#currentStateLabel{
+-fx-padding: 0 0 0 10;
+-fx-text-fill: #fff;
+}
+
+#errorsLabel{
+-fx-text-fill: red;
+}
+
+#nextModelBtn{
+    -fx-text-fill: #ddd;
+    -fx-background-color: #333
+}
+#prevModelBtn{
+    -fx-text-fill: #ddd;
+    -fx-background-color: #333
+}
+#rotateMinus {
+    -fx-text-fill: #ddd;
+    -fx-background-color: #333
+}
+#rotatePlus {
+    -fx-text-fill: #ddd;
+    -fx-background-color: #333
+}
+#scaleMinus {
+    -fx-text-fill: #ddd;
+    -fx-background-color: #333
+}
+#scalePlus {
+    -fx-text-fill: #ddd;
+    -fx-background-color: #333
+}
+#translateMinus {
+    -fx-text-fill: #ddd;
+    -fx-background-color: #333
+}
+#translatePlus {
+    -fx-text-fill: #ddd;
+    -fx-background-color: #333
+}
+#modelNumber {
+    -fx-text-fill: #ddd;
+    -fx-background-color: #333
+}
+#menu {
+    -fx-background-color: #777
+}
+#transformForAll {
+    -fx-text-fill: #ddd;
+    -fx-background-color: #333
+}
+#setXButton{
+    -fx-text-fill: #ddd;
+    -fx-background-color: #333
+}
+#setYButton{
+    -fx-text-fill: #ddd;
+    -fx-background-color: #333
+}
+#setZButton{
+    -fx-text-fill: #ddd;
+    -fx-background-color: #333
+}
+
