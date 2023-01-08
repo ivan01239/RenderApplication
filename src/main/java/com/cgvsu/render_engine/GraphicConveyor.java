@@ -37,9 +37,9 @@ public class GraphicConveyor {
         float[] resZ = resultZ.getVector();
 
         float[] matrix = new float[]{
-                resX[0], resY[0], resZ[0], 0,
-                resX[1], resY[1], resZ[1], 0,
-                resX[2], resY[2], resZ[2], 0,
+                resX[0], resX[1], resX[2], 0,
+                resY[0], resY[1], resY[2], 0,
+                resZ[0], resZ[1], resZ[2], 0,
                 -resultX.dotProduct(eye), -resultY.dotProduct(eye), -resultZ.dotProduct(eye), 1};
         return new Matrix4f(matrix);
     }
@@ -60,16 +60,17 @@ public class GraphicConveyor {
     }
 
     public static Vector3f multiplyMatrix4ByVector3(final Matrix4f matrix, final Vector3f vertex) {
-        final float x = (vertex.get(0) * matrix.get(0)) + (vertex.get(1) * matrix.get(4)) +
-                (vertex.get(2) * matrix.get(8)) + matrix.get(12);
-        final float y = (vertex.get(0) * matrix.get(1)) + (vertex.get(1) * matrix.get(5)) +
-                (vertex.get(2) * matrix.get(9)) + matrix.get(13);
-        final float z = (vertex.get(0) * matrix.get(2)) + (vertex.get(1) * matrix.get(6)) +
-                (vertex.get(2) * matrix.get(10)) + matrix.get(14);
-        final float w = (vertex.get(0) * matrix.get(3)) + (vertex.get(1) * matrix.get(7)) +
-                (vertex.get(2) * matrix.get(11)) + matrix.get(15);
+        final float x = (vertex.get(0) * matrix.get(0)) + (vertex.get(1) * matrix.get(1)) +
+                (vertex.get(2) * matrix.get(2)) + matrix.get(3);
+        final float y = (vertex.get(0) * matrix.get(4)) + (vertex.get(1) * matrix.get(5)) +
+                (vertex.get(2) * matrix.get(6)) + matrix.get(7);
+        final float z = (vertex.get(0) * matrix.get(8)) + (vertex.get(1) * matrix.get(9)) +
+                (vertex.get(2) * matrix.get(10)) + matrix.get(11);
+        final float w = (vertex.get(0) * matrix.get(12)) + (vertex.get(1) * matrix.get(13)) +
+                (vertex.get(2) * matrix.get(14)) + matrix.get(15);
         return new Vector3f(new float[] {x / w, y / w, z / w});
     }
+
 
     public static Point2f vertexToPoint(final Vector3f vertex, final int width, final int height) {
         return new Point2f(vertex.get(0) * width + width / 2.0F, -vertex.get(1) * height + height / 2.0F);

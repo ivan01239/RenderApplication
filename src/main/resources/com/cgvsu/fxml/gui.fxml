@@ -9,17 +9,17 @@
 <!--    <Button text="Dark" onAction="#onDark" layoutY="100"/>-->
 
     <Canvas fx:id="canvas" height="870" layoutX="-14.0" onDragDetected="#mouseDrag" onScroll="#mouseScroll" width="1600" AnchorPane.topAnchor="0.0" />
-   <Button fx:id="nextModelBtn" layoutX="55.0" layoutY="190.0" mnemonicParsing="false" onAction="#chooseNextModel" text="Next" />
-   <Button fx:id="prevModelBtn" layoutX="4.0" layoutY="190.0" mnemonicParsing="false" onAction="#choosePrevModel" text="Prev" />
-   <RadioButton fx:id="setYButton" layoutX="64.0" layoutY="119.0" mnemonicParsing="false" text="Y">
+   <Button fx:id="nextModelBtn" layoutX="55.0" layoutY="220.0" mnemonicParsing="false" onAction="#chooseNextModel" text="Next" />
+   <Button fx:id="prevModelBtn" layoutX="4.0" layoutY="220.0" mnemonicParsing="false" onAction="#choosePrevModel" text="Prev" />
+   <RadioButton fx:id="setYButton" layoutX="64.0" layoutY="150.0" mnemonicParsing="false" text="Y">
       <toggleGroup>
          <ToggleGroup fx:id="radioBtnGroup" />
       </toggleGroup></RadioButton>
-   <RadioButton fx:id="setXButton" layoutX="26.0" layoutY="119.0" mnemonicParsing="false" selected="true" text="X" toggleGroup="$radioBtnGroup" />
-   <RadioButton fx:id="setZButton" layoutX="103.0" layoutY="119.0" mnemonicParsing="false" text="Z" toggleGroup="$radioBtnGroup" />
-   <TextField fx:id="modelNumber" editable="false" layoutX="50.0" layoutY="160.0" prefHeight="11.0" prefWidth="29.0" />
-   <Label layoutX="8.0" layoutY="164.0" text="Model:" />
-   <CheckBox fx:id="transformForAll" layoutX="4.0" layoutY="140.0" mnemonicParsing="false" text="Transform all models" />
+   <RadioButton fx:id="setXButton" layoutX="26.0" layoutY="150.0" mnemonicParsing="false" selected="true" text="X" toggleGroup="$radioBtnGroup" />
+   <RadioButton fx:id="setZButton" layoutX="103.0" layoutY="150.0" mnemonicParsing="false" text="Z" toggleGroup="$radioBtnGroup" />
+   <TextField fx:id="modelNumber" editable="false" layoutX="50.0" layoutY="190.0" prefHeight="11.0" prefWidth="29.0" />
+   <Label layoutX="8.0" layoutY="194.0" text="Model:" />
+   <CheckBox fx:id="transformForAll" layoutX="4.0" layoutY="170.0" mnemonicParsing="false" text="Transform all models" />
     <MenuBar fx:id="menu">
       <Menu fx:id="file" mnemonicParsing="false" text="File">
          <items>
@@ -35,7 +35,7 @@
             </MenuItem>
          </items>
       </Menu>
-      <Menu fx:id="camera" mnemonicParsing="false" text="Camera Options">
+      <Menu fx:id="cameraOptions" mnemonicParsing="false" text="Camera Options">
          <items>
             <MenuItem mnemonicParsing="false" onAction="#handleCameraForward" text="Forward">
                <accelerator>
@@ -67,24 +67,41 @@
                   <KeyCodeCombination alt="UP" code="S" control="UP" meta="UP" shift="UP" shortcut="UP" />
                </accelerator>
             </MenuItem>
+            <MenuItem mnemonicParsing="false" onAction="#handleTargetUp" text="Target Up">
+               <accelerator>
+                  <KeyCodeCombination alt="UP" code="NUMPAD8" control="UP" meta="UP" shift="UP" shortcut="UP" />
+               </accelerator>
+            </MenuItem>
+            <MenuItem mnemonicParsing="false" onAction="#handleTargetDown" text="Target Down">
+               <accelerator>
+                  <KeyCodeCombination alt="UP" code="NUMPAD2" control="UP" meta="UP" shift="UP" shortcut="UP" />
+               </accelerator></MenuItem>
+            <MenuItem mnemonicParsing="false" onAction="#handleTargetLeft" text="Target Left">
+               <accelerator>
+                  <KeyCodeCombination alt="UP" code="NUMPAD4" control="UP" meta="UP" shift="UP" shortcut="UP" />
+               </accelerator></MenuItem>
+            <MenuItem mnemonicParsing="false" onAction="#handleTargetRight" text="Target Right">
+               <accelerator>
+                  <KeyCodeCombination alt="UP" code="NUMPAD6" control="UP" meta="UP" shift="UP" shortcut="UP" />
+               </accelerator></MenuItem>
          </items>
       </Menu>
       <Menu fx:id="themes" mnemonicParsing="false" text="Themes">
          <items>
             <MenuItem mnemonicParsing="false" onAction="#onDark" text="Dark">
                <accelerator>
-                  <KeyCodeCombination alt="UP" code="NUMPAD1" control="UP" meta="UP" shift="UP" shortcut="UP" />
+                  <KeyCodeCombination alt="UP" code="DIGIT1" control="UP" meta="UP" shift="UP" shortcut="UP" />
                </accelerator>
             </MenuItem>
             <MenuItem mnemonicParsing="false" onAction="#onLight" text="Light">
                <accelerator>
-                  <KeyCodeCombination alt="UP" code="NUMPAD2" control="UP" meta="UP" shift="UP" shortcut="UP" />
+                  <KeyCodeCombination alt="UP" code="DIGIT2" control="UP" meta="UP" shift="UP" shortcut="UP" />
                </accelerator>
             </MenuItem>
          </items>
       </Menu>
     </MenuBar>
-   <Pane fx:id="buttons" layoutX="4.0" layoutY="26.0" prefHeight="95.0" prefWidth="162.0">
+   <Pane fx:id="buttons" layoutX="4.0" layoutY="26.0" prefHeight="121.0" prefWidth="162.0">
       <children>
          <Button fx:id="translatePlus" layoutX="86.0" layoutY="65.0" onAction="#translate" prefHeight="26.0" prefWidth="73.0" text="Translate+" />
          <Button fx:id="translateMinus" layoutX="4.0" layoutY="65.0" onAction="#translateMinus" prefHeight="26.0" prefWidth="70.0" text="Translate-" />
@@ -92,6 +109,7 @@
          <Button fx:id="rotatePlus" layoutX="86.0" layoutY="36.0" onAction="#rotate" prefHeight="26.0" prefWidth="73.0" text="Rotate+" />
          <Button fx:id="scaleMinus" layoutX="4.0" layoutY="8.0" onAction="#scaleMinus" prefHeight="26.0" prefWidth="70.0" text="Scale-" />
          <Button fx:id="scalePlus" layoutX="86.0" layoutY="8.0" onAction="#scale" prefHeight="26.0" prefWidth="73.0" text="Scale+" />
+         <Button fx:id="setDefaultBtn" layoutX="36.0" layoutY="95.0" mnemonicParsing="false" onAction="#setDefaultRts" text="Set default" />
       </children>
    </Pane>
 </AnchorPane>

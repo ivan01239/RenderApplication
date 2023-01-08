@@ -89,8 +89,8 @@ public class Transformation {
                 1, 0, 0,
                 0, cosX, -sinX,
                 0, sinX, cosX, });
-        rotateZMatrix = (Matrix3f) Matrix4f.multiplicateMatrices(rotateZMatrix, rotateYMatrix);
-        rotateZMatrix = (Matrix3f) Matrix4f.multiplicateMatrices(rotateZMatrix, rotateXMatrix);
-        return (Vector3f) rotateZMatrix.multiplicateOnVector(vector3f);
+        rotateXMatrix = (Matrix3f) Matrix4f.multiplicateMatrices(rotateXMatrix, rotateYMatrix);
+        rotateXMatrix = (Matrix3f) Matrix4f.multiplicateMatrices(rotateXMatrix, rotateZMatrix);
+        return (Vector3f) rotateXMatrix.multiplicateOnVector(vector3f);
     }
 }

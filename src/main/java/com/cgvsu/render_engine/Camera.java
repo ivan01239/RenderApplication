@@ -47,7 +47,7 @@ public class Camera {
     }
 
     public void moveTarget(final Vector3f translation) throws Vector.VectorException {
-        this.target = (Vector3f) Vector.sumVector(target, target);
+        this.target = (Vector3f) Vector.sumVector(target, translation);
     }
 
     Matrix4f getViewMatrix() throws Vector.VectorException {

@@ -17,7 +17,6 @@ import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
-import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
@@ -28,7 +27,6 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
-import javax.swing.*;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -46,11 +44,6 @@ public class GuiController {
 
     @FXML
     private Canvas canvas;
-
-    private Model mesh = null;
-
-    @FXML
-    private Button changeTheme;
 
     @FXML
     private TextField modelNumber;
@@ -158,6 +151,15 @@ public class GuiController {
     public void handleCameraLeftRightUpDown(float upDown, float leftRight) throws Vector.VectorException, Matrix.MatrixException {
         camera.setPosition(Transformation.rotateVector(new Vector3f(new float[] {upDown, leftRight, 0}),
                 camera.getPosition()));
+    }
+
+    public void handleTarget(float upDown, float leftRight) throws Vector.VectorException, Matrix.MatrixException {
+        camera.moveTarget(new Vector3f(new float[] {0, upDown, leftRight}));
+        for (float val: camera.getTarget().getVector()) {
+            System.out.print(val);
+            System.out.print(" ");
+        }
+        System.out.println();
     }
 
     public void scale (ActionEvent event) throws Matrix.MatrixException {
@@ -316,5 +318,21 @@ public class GuiController {
         handleCameraLeftRightUpDown(-TRANSLATION, 0);
     }
 
+    public void handleTargetLeft(ActionEvent actionEvent) throws Vector.VectorException, Matrix.MatrixException {
+        handleTarget(0, -TRANSLATION);
+    }
+    public void handleTargetRight(ActionEvent actionEvent) throws Vector.VectorException, Matrix.MatrixException {
+        handleTarget(0, TRANSLATION);
+    }
+    public void handleTargetUp(ActionEvent actionEvent) throws Vector.VectorException, Matrix.MatrixException {
+        handleTarget(TRANSLATION, 0);
+    }
+    public void handleTargetDown(ActionEvent actionEvent) throws Vector.VectorException, Matrix.MatrixException {
+        handleTarget(-TRANSLATION, 0);
+    }
 
+
+    public void setDefaultRts(ActionEvent actionEvent) {
+        modelList.get(chooseModel).rotateScaleTranslate = GraphicConveyor.rotateScaleTranslate();
+    }
 }

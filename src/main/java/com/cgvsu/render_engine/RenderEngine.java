@@ -26,9 +26,12 @@ public class RenderEngine {
         Matrix4f viewMatrix = camera.getViewMatrix();
         Matrix4f projectionMatrix = camera.getProjectionMatrix();
 
+        viewMatrix = (Matrix4f) Matrix4f.transposeMatrix(viewMatrix);
+        projectionMatrix = (Matrix4f) Matrix4f.transposeMatrix(projectionMatrix);
         Matrix4f modelViewProjectionMatrix = new Matrix4f(modelMatrix.getVector());
-        modelViewProjectionMatrix = (Matrix4f) Matrix4f.multiplicateMatrices(modelViewProjectionMatrix, viewMatrix);
-        modelViewProjectionMatrix = (Matrix4f) Matrix4f.multiplicateMatrices(modelViewProjectionMatrix, projectionMatrix);
+        modelViewProjectionMatrix = (Matrix4f) Matrix4f.multiplicateMatrices(projectionMatrix, viewMatrix);
+        modelViewProjectionMatrix = (Matrix4f) Matrix4f.multiplicateMatrices(modelViewProjectionMatrix, modelMatrix);
+
 
         final int nPolygons = mesh.polygons.size();
         for (int polygonInd = 0; polygonInd < nPolygons; ++polygonInd) {
@@ -37,10 +40,9 @@ public class RenderEngine {
             ArrayList<Point2f> resultPoints = new ArrayList<>();
             for (int vertexInPolygonInd = 0; vertexInPolygonInd < nVerticesInPolygon; ++vertexInPolygonInd) {
                 Vector3f vertex = mesh.vertices.get(mesh.polygons.get(polygonInd).getVertexIndices().get(vertexInPolygonInd));
-
                 Vector3f vertexVecmath = new Vector3f(new float[]{vertex.get(0), vertex.get(1), vertex.get(2)});
 
-                Point2f resultPoint = vertexToPoint(multiplyMatrix4ByVector3(modelViewProjectionMatrix, vertexVecmath), width, height);
+               Point2f resultPoint = vertexToPoint(multiplyMatrix4ByVector3(modelViewProjectionMatrix, vertexVecmath), width, height);
                 resultPoints.add(resultPoint);
             }
 
@@ -60,4 +62,4 @@ public class RenderEngine {
                         resultPoints.get(0).getY());
         }
     }
-}
+ }
